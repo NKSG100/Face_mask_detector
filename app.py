@@ -1,4 +1,5 @@
 from flask import Flask, render_template, Response
+import os
 import cv2
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
@@ -8,14 +9,19 @@ import imutils
 
 app = Flask(__name__, template_folder='templates')  # Ensure the 'templates' folder is used
 
-# Load models
-face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
-mask_model = load_model("mask_model_working.h5")
+# Environment variable to check if the app is running in production
+ENV = os.getenv("ENV", "development")
 
-# Initialize the webcam
-vs = cv2.VideoCapture(0)
+if ENV == "development":
+    # Load models only in development mode
+    face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
+    mask_model = load_model("mask_model_working.h5")
+    vs = cv2.VideoCapture(0)  # Initialize the webcam
 
 def generate_frames():
+    if ENV == "production":
+        return  # Disable webcam-based features in production
+    
     while True:
         ret, frame = vs.read()
         if not ret:
@@ -74,14 +80,16 @@ def index():
 
 @app.route('/video_feed')
 def video_feed():
+    if ENV == "production":
+        return "Video feed is disabled in production"
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/stop_feed')
 def stop_feed():
     global vs
-    if vs.isOpened():
+    if ENV == "development" and vs.isOpened():
         vs.release()  # Release the webcam
     return "Webcam feed stopped"
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5000)  # Ensure the app listens on the right IP and port
+    app.run(debug=(ENV == "development"), host="0.0.0.0", port=5000)  # Ensure the app listens on the right IP and port
