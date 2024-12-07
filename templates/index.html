@@ -9,12 +9,8 @@
 <body>
     <h1>Mask Detection Live Stream</h1>
 
-    <!-- Conditional display for the webcam feed -->
-    {% if ENV == 'development' %}
-        <img id="video" src="{{ url_for('video_feed') }}" alt="Video Feed">
-    {% else %}
-        <p>Video feed is disabled in production</p>
-    {% endif %}
+    <!-- Video feed will always be shown, regardless of environment -->
+    <img id="video" src="{{ url_for('video_feed') }}" alt="Video Feed">
 
     <br><br>
     <button id="stopButton" onclick="stopStream()">Stop Stream</button>
