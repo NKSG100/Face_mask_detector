@@ -7,7 +7,7 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 import numpy as np
 import imutils
 
-app = Flask(__name__, template_folder='templates')  # Ensure the 'templates' folder is used
+app = Flask(__name__, template_folder='templates')
 
 # Environment variable to check if the app is running in production
 ENV = os.getenv("ENV", "development")
@@ -76,7 +76,7 @@ def generate_frames():
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Ensure index.html is in the 'templates' folder
+    return render_template('index.html')
 
 @app.route('/video_feed')
 def video_feed():
@@ -92,4 +92,4 @@ def stop_feed():
     return "Webcam feed stopped"
 
 if __name__ == '__main__':
-    app.run(debug=(ENV == "development"), host="0.0.0.0", port=5000)  # Ensure the app listens on the right IP and port
+    app.run(debug=(ENV == "development"), host="0.0.0.0", port=5000)
