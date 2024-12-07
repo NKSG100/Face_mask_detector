@@ -12,16 +12,14 @@ app = Flask(__name__, template_folder='templates')
 # Environment variable to check if the app is running in production
 ENV = os.getenv("ENV", "development")
 
-if ENV == "development":
-    # Load models only in development mode
-    face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
-    mask_model = load_model("mask_model_working.h5")
-    vs = cv2.VideoCapture(0)  # Initialize the webcam
+# Load models in both environments
+face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
+mask_model = load_model("mask_model_working.h5")
+
+# Initialize the webcam for both environments
+vs = cv2.VideoCapture(0)
 
 def generate_frames():
-    if ENV == "production":
-        return  # Disable webcam-based features in production
-    
     while True:
         ret, frame = vs.read()
         if not ret:
@@ -80,14 +78,12 @@ def index():
 
 @app.route('/video_feed')
 def video_feed():
-    if ENV == "production":
-        return "Video feed is disabled in production"
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/stop_feed')
 def stop_feed():
     global vs
-    if ENV == "development" and vs.isOpened():
+    if vs.isOpened():
         vs.release()  # Release the webcam
     return "Webcam feed stopped"
 
