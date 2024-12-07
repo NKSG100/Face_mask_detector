@@ -6,7 +6,7 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 import numpy as np
 import imutils
 
-app = Flask(__name__, template_folder='template')  # Specify the template folder
+app = Flask(__name__, template_folder='templates')  # Ensure the 'templates' folder is used
 
 # Load models
 face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
@@ -70,7 +70,7 @@ def generate_frames():
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Make sure index.html is in the 'template' folder
+    return render_template('index.html')  # Ensure index.html is in the 'templates' folder
 
 @app.route('/video_feed')
 def video_feed():
@@ -84,4 +84,4 @@ def stop_feed():
     return "Webcam feed stopped"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)  # Ensure the app listens on the right IP and port
