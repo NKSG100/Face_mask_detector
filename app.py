@@ -10,7 +10,7 @@ app = Flask(__name__, template_folder='template')  # Specify the template folder
 
 # Load models
 face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
-mask_model = load_model("mask_model_working.keras")
+mask_model = load_model("mask_model_working.h5")
 
 # Initialize the webcam
 vs = cv2.VideoCapture(0)
