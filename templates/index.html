@@ -10,10 +10,12 @@
     <h1>Mask Detection Live Stream</h1>
 
     <!-- Video feed will always be shown, regardless of environment -->
-    <img id="video" src="{{ url_for('video_feed') }}" alt="Video Feed">
+    <div id="videoContainer" style="display: flex; justify-content: center; align-items: center;">
+        <img id="video" src="{{ url_for('video_feed') }}" alt="Video Feed" style="max-width: 100%; border-radius: 15px;">
+    </div>
 
     <br><br>
-    <button id="stopButton" onclick="stopStream()">Stop Stream</button>
+    <button id="stopButton" onclick="stopStream()" style="margin-top: 20px; padding: 10px 20px;">Stop Stream</button>
 
     <script>
         var videoElement = document.getElementById("video");
