@@ -18,26 +18,37 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 20px;
 }
 
-/* Header */
+/* Header Styling */
 h1 {
     font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Video Stream */
-#video {
-    max-width: 80%;
-    border: 5px solid #fff;
+/* Video Container */
+#videoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 3px solid #fff;
     border-radius: 15px;
+    padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
+    margin-bottom: 30px;
 }
 
-/* Button */
+/* Video Styling */
+#video {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Button Styling */
 #stopButton {
     background-color: #ff4757;
     color: #fff;
@@ -58,14 +69,4 @@ h1 {
 #stopButton:active {
     transform: scale(1);
     background-color: #c0392b;
-}
-
-/* Fade-In Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
