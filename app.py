@@ -12,20 +12,29 @@ app = Flask(__name__, template_folder='templates')
 # Environment variable to check if the app is running in production
 ENV = os.getenv("ENV", "development")
 
-# Load models in both environments
+# Load models
 face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
 mask_model = load_model("mask_model_working.h5")
 
-# Initialize the webcam for both environments
+# Initialize the webcam
 vs = cv2.VideoCapture(0)
+
+# Check if the webcam is initialized properly
+if not vs.isOpened():
+    print("Error: Could not open video stream.")
+else:
+    print("Webcam successfully opened.")
 
 def generate_frames():
     while True:
         ret, frame = vs.read()
-        if not ret:
-            break
-        frame = imutils.resize(frame, width=400)
+        if not ret or frame is None:
+            print("Error: Failed to capture frame or frame is None.")
+            continue
 
+        print("Frame captured successfully.")
+
+        frame = imutils.resize(frame, width=400)
         (height, width) = frame.shape[:2]
         blob = cv2.dnn.blobFromImage(frame, 1.0, (224, 224), (104.0, 177.0, 123.0))
         face_model.setInput(blob)
@@ -33,7 +42,7 @@ def generate_frames():
 
         faces = []
         co_ordinates = []
-        prediction_values = []
+        predictions = []
 
         for i in range(0, detections.shape[2]):
             probability = detections[0, 0, i, 2]
@@ -44,21 +53,22 @@ def generate_frames():
                 (x_end, y_end) = (min(width - 1, x_end), min(height - 1, y_end))
 
                 face = frame[y_start:y_end, x_start:x_end]
-                face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
-                face = cv2.resize(face, (224, 224))
-                face = img_to_array(face)
-                face = preprocess_input(face)
+                if face.shape[0] > 0 and face.shape[1] > 0:
+                    face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
+                    face = cv2.resize(face, (224, 224))
+                    face = img_to_array(face)
+                    face = preprocess_input(face)
 
-                faces.append(face)
-                co_ordinates.append((x_start, y_start, x_end, y_end))
+                    faces.append(face)
+                    co_ordinates.append((x_start, y_start, x_end, y_end))
 
         if len(faces) > 0:
             faces = np.array(faces, dtype="float32")
-            prediction_values = mask_model.predict(faces, batch_size=32)
+            predictions = mask_model.predict(faces, batch_size=32)
 
-        for (box, prediction_values) in zip(co_ordinates, prediction_values):
+        for (box, prediction) in zip(co_ordinates, predictions):
             (x_start, y_start, x_end, y_end) = box
-            (mask, withoutMask) = prediction_values
+            (mask, withoutMask) = prediction
 
             label = "Mask Detected" if mask > withoutMask else "WARNING: No Mask"
             color = (0, 255, 0) if label == "Mask Detected" else (0, 0, 255)
@@ -69,6 +79,7 @@ def generate_frames():
 
         _, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
+
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
