@@ -11,13 +11,22 @@
 
     <!-- Video feed from Flask backend -->
     <div id="videoContainer" style="display: flex; justify-content: center; align-items: center;">
-        <img id="video" width="80%" height="auto" src="{{ url_for('video_feed') }}" />
+        <video id="video" width="80%" height="auto" autoplay playsinline></video>
     </div>
 
     <br><br>
     <button id="stopButton" onclick="stopStream()">Stop Stream</button>
 
     <script>
+        var videoElement = document.getElementById("video");
+
+        // Function to start the video stream
+        function startVideo() {
+            if (videoElement) {
+                videoElement.src = "{{ url_for('video_feed') }}";  // Set video source to the streaming route
+            }
+        }
+
         function stopStream() {
             fetch('/stop_feed').then(response => {
                 if (response.ok) {
@@ -25,6 +34,9 @@
                 }
             });
         }
+
+        // Start the video stream when the page loads
+        window.onload = startVideo;
     </script>
 </body>
 </html>
