@@ -9,51 +9,22 @@
 <body>
     <h1>Mask Detection Live Stream</h1>
 
-    <!-- Video feed will always be shown, regardless of environment -->
+    <!-- Video feed from Flask backend -->
     <div id="videoContainer" style="display: flex; justify-content: center; align-items: center;">
-        <video id="video" width="80%" height="auto" autoplay playsinline></video>
+        <img id="video" width="80%" height="auto" src="{{ url_for('video_feed') }}" />
     </div>
 
     <br><br>
     <button id="stopButton" onclick="stopStream()">Stop Stream</button>
 
     <script>
-        var videoElement = document.getElementById("video");
-
-        // Request webcam access
-        function startVideo() {
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function (stream) {
-                        videoElement.srcObject = stream;
-                    })
-                    .catch(function (error) {
-                        alert("Could not access webcam. Please make sure the camera is connected and permissions are granted.");
-                    });
-            } else {
-                alert("Your browser does not support webcam access.");
-            }
-        }
-
         function stopStream() {
-            // Stop the video feed in the frontend
-            let stream = videoElement.srcObject;
-            if (stream) {
-                let tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-                videoElement.srcObject = null;
-            }
-
-            // Call the backend to stop the webcam (if applicable)
             fetch('/stop_feed').then(response => {
                 if (response.ok) {
                     alert("Stream stopped");
                 }
             });
         }
-
-        // Start the video stream when the page loads
-        window.onload = startVideo;
     </script>
 </body>
 </html>
