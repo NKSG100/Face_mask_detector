@@ -38,10 +38,9 @@ Video Processing	OpenCV
 Follow these steps to set up and run the project:
 
 1️⃣ Clone the Repository
-bash
-Copy code
-git clone https://github.com/yourusername/face-mask-detection.git
+git clone https://github.com/NKSG100/Face_mask_detector
 cd face-mask-detection
+
 2️⃣ Install Dependencies
 Install all required libraries from the requirements.txt file:
 
@@ -51,12 +50,7 @@ pip install -r requirements.txt
 3️⃣ Run the Application
 Once the setup is complete, run the main script:
 
-bash
-Copy code
 python app.py
-
-
-
 
 📂 Project Structure
 face-mask-detection/
@@ -86,6 +80,13 @@ Kaggle Face Mask Dataset
 🎥 Demo
 Real-time Demo: Works with webcam input to detect and classify faces.
 Screenshots:
+
+No mask Detected:
+![Screenshot 2024-12-17 124728](https://github.com/user-attachments/assets/5ef375eb-a02f-4924-86f3-ed0f21bf086c)
+
+
+Mask Detected:
+![Screenshot 2024-12-17 124829](https://github.com/user-attachments/assets/8b2f1211-c478-43a3-bd77-d9a9dae53bdd)
 
 🔍 Results
 The CNN model achieved the following performance on the test set:
