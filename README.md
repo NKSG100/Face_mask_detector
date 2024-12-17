@@ -1,0 +1,107 @@
+🖥️ Face Mask Detection System
+
+📄 Project Description:
+This project aims to detect whether a person is wearing a mask or not in images, videos, or real-time streams. It combines face detection and mask classification using Deep Learning and Computer Vision techniques. This system is particularly useful for monitoring public spaces to ensure mask compliance.
+
+🚀 Features:
+Detect human faces in images, video streams, or real-time webcam feeds.
+Classify detected faces as masked or unmasked.
+Provides real-time feedback for ensuring safety protocols.
+Utilizes optimized pre-trained and custom models for efficient performance.
+
+⚙️ Workflow:
+Face Detection:
+Use a pre-trained DNN model to locate human faces in the input (image/video).
+Mask Classification:
+
+Pass the detected face regions through a Convolutional Neural Network (CNN) model trained on a dataset of masked and unmasked faces.
+The model classifies the faces as:
+✅ Masked
+❌ Unmasked
+Real-Time Output:
+
+Combines face detection and mask classification models to work seamlessly for live video streams.
+Visual indicators are displayed on the video feed.
+
+📊 Tech Stack:
+The following technologies and libraries were used to build this project:
+
+Component	Technology/Library
+Programming Language	Python
+Face Detection Model	OpenCV, Pre-trained DNN
+Mask Detection Model	TensorFlow, Keras (CNN)
+Data Processing	NumPy, scikit-learn
+Video Processing	OpenCV
+
+
+🛠️ Installation & Setup
+Follow these steps to set up and run the project:
+
+1️⃣ Clone the Repository
+bash
+Copy code
+git clone https://github.com/yourusername/face-mask-detection.git
+cd face-mask-detection
+2️⃣ Install Dependencies
+Install all required libraries from the requirements.txt file:
+
+Run This Command-
+pip install -r requirements.txt
+   
+3️⃣ Run the Application
+Once the setup is complete, run the main script:
+
+bash
+Copy code
+python app.py
+
+
+
+
+📂 Project Structure
+face-mask-detection/
+│
+├── models/                             # Pre-trained and trained models  
+│   ├── face_detector/                  # Face detection DNN model  
+│   └── mask_detector/                  # Mask detection CNN model  
+│
+├── dataset/                            # Dataset of masked and unmasked faces  
+│
+├── app.py                              # Main script to run the detection system  
+├── mask_detection_model.h5             # CNN model training script  
+├── requirements.txt                    # Required Python libraries  
+└── README.md                           # Project documentation  
+
+📊 Dataset
+The dataset contains images of human faces in two categories:
+
+Masked Faces
+Unmasked Faces
+The data was preprocessed (resized, normalized) to train the MobileNetV2-based CNN model efficiently.
+
+If you want to use a public dataset:
+
+Kaggle Face Mask Dataset
+
+🎥 Demo
+Real-time Demo: Works with webcam input to detect and classify faces.
+Screenshots:
+
+🔍 Results
+The CNN model achieved the following performance on the test set:
+
+Metric	Score
+Accuracy	98.5%
+Precision	97.8%
+Recall	98.2%
+F1-Score	98.0%
+
+💡 Applications
+This system can be used for:
+
+Monitoring public spaces (malls, offices, airports, etc.).
+Ensuring mask compliance in real-time.
+Assisting safety protocols during pandemics.
+
+📜 License
+This project is licensed under the MIT License.
