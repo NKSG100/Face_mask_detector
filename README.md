@@ -45,6 +45,7 @@ cd face-mask-detection
 Install all required libraries from the requirements.txt file:
 
 Run This Command-
+
 pip install -r requirements.txt
    
 3️⃣ Run the Application
@@ -55,6 +56,7 @@ python app.py
 📂 Project Structure
 
 face-mask-detection/
+
 │
 ├── models/                             # Pre-trained and trained models  
 │   ├── face_detector/                  # Face detection DNN model  
