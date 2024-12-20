@@ -55,6 +55,8 @@ python app.py
 
 📂 Project Structure  
 face-mask-detection/  
+-> Create Model  
+-> -> python code to create a trained mask model.  
 -> DNN Model  
 -> -> Pre downloaded Face Model  
 -> static  
@@ -62,7 +64,7 @@ face-mask-detection/
 -> templates  
 -> -> index.html   #HTML structure file  
 -> app.py         #main file  
--> mask_model     #trained masked model  
+-> mask_model.h5     #trained masked model  
 -> requirements   #required dependencies  
 
 📊 Dataset
