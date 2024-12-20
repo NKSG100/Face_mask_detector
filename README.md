@@ -53,17 +53,17 @@ Once the setup is complete, run the main script:
 
 python app.py
 
-📂 Project Structure
-face-mask-detection/
--> DNN Model
--> -> Pre downloaded Face Model
--> static
--> -> style.css    #CSS files
--> templates
--> -> index.html   #HTML structure file
--> app.py         #main file
--> mask_model     #trained masked model
--> requirements   #required dependencies
+📂 Project Structure  
+face-mask-detection/  
+-> DNN Model  
+-> -> Pre downloaded Face Model  
+-> static  
+-> -> style.css    #CSS files  
+-> templates  
+-> -> index.html   #HTML structure file  
+-> app.py         #main file  
+-> mask_model     #trained masked model  
+-> requirements   #required dependencies  
 
 📊 Dataset
 The dataset contains images of human faces in two categories:
