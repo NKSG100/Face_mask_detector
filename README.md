@@ -53,6 +53,7 @@ Once the setup is complete, run the main script:
 python app.py
 
 📂 Project Structure
+
 face-mask-detection/
 │
 ├── models/                             # Pre-trained and trained models  
