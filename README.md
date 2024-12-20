@@ -54,20 +54,16 @@ Once the setup is complete, run the main script:
 python app.py
 
 📂 Project Structure
-
 face-mask-detection/
-
-│
-├── models/                             # Pre-trained and trained models  
-│   ├── face_detector/                  # Face detection DNN model  
-│   └── mask_detector/                  # Mask detection CNN model  
-│
-├── dataset/                            # Dataset of masked and unmasked faces  
-│
-├── app.py                              # Main script to run the detection system  
-├── mask_detection_model.h5             # CNN model training script  
-├── requirements.txt                    # Required Python libraries  
-└── README.md                           # Project documentation  
+-> DNN Model
+-> -> Pre downloaded Face Model
+-> static
+-> -> style.css    #CSS files
+-> templates
+-> -> index.html   #HTML structure file
+-> app.py         #main file
+-> mask_model     #trained masked model
+-> requirements   #required dependencies
 
 📊 Dataset
 The dataset contains images of human faces in two categories:
