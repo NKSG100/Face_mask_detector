@@ -7,32 +7,19 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 import numpy as np
 import imutils
 
-app = Flask(__name__, template_folder='templates')
-
-# Environment variable to check if the app is running in production
-ENV = os.getenv("ENV", "development")
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # Load models
 face_model = cv2.dnn.readNet("DNN model/deploy.prototxt", "DNN model/res10_300x300_ssd_iter_140000.caffemodel")
 mask_model = load_model("mask_model_working.h5")
 
-# Initialize the webcam
 vs = cv2.VideoCapture(0)
-
-# Check if the webcam is initialized properly
-if not vs.isOpened():
-    print("Error: Could not open video stream.")
-else:
-    print("Webcam successfully opened.")
 
 def generate_frames():
     while True:
         ret, frame = vs.read()
-        if not ret or frame is None:
-            print("Error: Failed to capture frame or frame is None.")
+        if not ret:
             continue
-
-        print("Frame captured successfully.")
 
         frame = imutils.resize(frame, width=400)
         (height, width) = frame.shape[:2]
@@ -95,8 +82,8 @@ def video_feed():
 def stop_feed():
     global vs
     if vs.isOpened():
-        vs.release()  # Release the webcam
-    return "Webcam feed stopped"
+        vs.release()
+    return "Stream stopped"
 
 if __name__ == '__main__':
-    app.run(debug=(ENV == "development"), host="0.0.0.0", port=5000)
+    app.run(debug=True)
